@@ -22,7 +22,7 @@ const generatePrompt = () => {
         type: 'list',
         name: 'options',
         message:'What would you like to do?',
-        choices:["View All Employees","Add Employee","Update Employee Role","View All Roles","Add Role","View All Departments","Add Department"]
+        choices:["View All Employees","Add Employee","Update Employee Role","View All Roles","Add Role","View All Departments","Add Department","Exit"]
     },
     // //{
     //     type: 'input',
@@ -48,6 +48,7 @@ const generatePrompt = () => {
     ]
     ).then(function(answers){
       if(answers.options==="View All Employees"){
+
     viewallemployees()
       }
       else if(answers.options==="Add Employee"){
@@ -73,7 +74,44 @@ const generatePrompt = () => {
     })
 }
 function viewallroles(){
-    db.query("select * from employee_role",function(data){
+   return db.query("select * from employee_role",function(data){
         console.table(data)
+        return data
     })
 }
+function viewallemployees(){
+  db.query("select * from employee",(err,res)=>{
+    console.log(res)
+  })
+}
+
+function viewalldepartments(){
+  db.query("select * from department",(err,res)=>{
+    console.log(res)
+  })
+}
+
+function addemployee(){
+  db.query("select id,first_name,last_name,manager_id from employee",(err,res)=>{
+    let emp_id =res.map((employee)=>{
+      return employee.id
+    })
+
+    let manager_id = res.map((manager)=>{
+      return manager.manager_id
+    })
+
+    console.log(manager_id)
+
+  db.query("select * from employee_role",(err,res)=>{
+    let role_id =res.map((role)=> {
+      return role.id
+    })
+
+
+  })
+
+})}
+
+
+generatePrompt();
