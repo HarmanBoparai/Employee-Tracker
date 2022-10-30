@@ -144,15 +144,54 @@ db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUE
     })
 
       })
+    })
   
-      
+  }
+
+  function addrole(){
+    db.query("select * from employee_role",(err,res)=>{
+      let role_id =res.map((role)=> {
+        return role.id
+      })
+
+      let addroleQuestions =[{
+        type: 'input',
+        name: 'first_name',
+        message: 'What is the first name of the employee?',
+      },
+      {
+        type: 'input',
+        name: 'last_name',
+        message: 'What is the last name of the employee?',
+      },
+      {
+        type: 'list',
+        name: 'salary',
+        message:'What is the ]salary of the employee?',
+    },
+
+      {
+        type: 'list',
+        name: 'department_id',
+        message:'Which department does employee work for ?',
+        choices:department_id,
+    },
+  ]
+  
+  inquirer.prompt(addroleQuestions).then((answers)=>{
+  console.log(answers)
+  db.query(`INSERT INTO EMPLOYEE_ROLE ( first_name,last_name,salary,department_id) VALUES ('${answers.first_name}','${answers.last_name}','${answers.salary}','${answers.department_id}')`,(err,result)=>{
+    if(err) console.log(err)
+    console.log(result)
+  })
+  })
+    })
+  
+    }    
       
   
  
-    })
-  
-    }
-
+   
 
 
 
