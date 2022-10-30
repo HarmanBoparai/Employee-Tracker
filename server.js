@@ -1,5 +1,6 @@
 //Packages required for the application
 const inquirer = require('inquirer');
+const cTable = require('console.table');
 
 
 // Import and require mysql2
@@ -150,7 +151,7 @@ db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUE
 
   function addrole(){
     db.query("select * from employee_role",(err,res)=>{
-      let role_id =res.map((role)=> {
+      let department_id =res.map((role)=> {
         return role.id
       })
 
