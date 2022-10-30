@@ -78,7 +78,7 @@ function addemployee(){
       return role.id
     })
 
-    console.log(role_id)
+    
     let addemployeeQuestions =[{
       type: 'input',
       name: 'first_name',
