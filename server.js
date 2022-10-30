@@ -55,9 +55,8 @@ const generatePrompt = () => {
     })
 }
 function viewallroles(){
-   return db.query("select * from employee_role",function(data){
-        console.table(data)
-        return data
+   return db.query("select * from employee_role",(err,res)=>{
+    console.log(res)
     })
 }
 function viewallemployees(){
@@ -78,7 +77,7 @@ function addemployee(){
       return role.id
     })
 
-    
+
     let addemployeeQuestions =[{
       type: 'input',
       name: 'first_name',
