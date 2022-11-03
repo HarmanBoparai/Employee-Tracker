@@ -195,7 +195,7 @@ db.query(`INSERT INTO EMPLOYEE (first_name,last_name,role_id,manager_id) VALUES 
  
       inquirer.prompt(adddeptQuestion).then((answers)=>{
         console.table(answers)
-        db.query(`INSERT INTO department (departmentname) VALUES ('${answers.title}')`,(err,result)=>{
+        db.query(`INSERT INTO department (departmentname) VALUES ('${answers.departmentname}')`,(err,result)=>{
           if(err) console.table(err)
           console.table(result)
         })
