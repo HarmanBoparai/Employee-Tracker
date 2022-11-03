@@ -57,18 +57,18 @@ const generatePrompt = () => {
 }
 function viewallroles(){
    return db.query("select * from employee_role",(err,res)=>{
-    console.log(res)
+    console.table(res)
     })
 }
 function viewallemployees(){
-  db.query("select * from employee",(err,res)=>{
-    console.log(res)
+  db.query("select employee.id,employee.first_name,employee.last_name,employee_role.title,employee_role.salary,department.departmentname FROM employee LEFT JOIN employee_role ON employee.role_id=employee_role.id LEFT JOIN department ON department.id =employee_role.department_id",(err,res)=>{
+    console.table(res)
   })
 }
 
 function viewalldepartments(){
   db.query("select * from department",(err,res)=>{
-    console.log(res)
+    console.table(res)
   })
 }
 
@@ -104,10 +104,10 @@ function addemployee(){
 ]
 
 inquirer.prompt(addemployeeQuestions).then((answers)=>{
-console.log(answers)
+console.table(answers)
 db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUES ('${answers.first_name}','${answers.last_name}','${answers.employee_role}','${answers.manager_id}')`,(err,result)=>{
-  if(err) console.log(err)
-  console.log(result)
+  if(err) console.table(err)
+  console.table(result)
 })
 })
   })
@@ -140,7 +140,7 @@ db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUE
     inquirer.prompt(updateemployeeQuestions).then((answers)=>{
       db.query(`UPDATE employee SET role_id=${answers.role_id} WHERE first_name='${answers.emp_name}'`,(err,result)=>{
         if(err) console.log(err);
-        console.log(result)
+        console.table(result)
       })
     })
 
@@ -157,18 +157,13 @@ db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUE
 
       let addroleQuestions =[{
         type: 'input',
-        name: 'first_name',
-        message: 'What is the first name of the employee?',
+        name: 'title',
+        message: 'What is the name of the role?',
       },
       {
         type: 'input',
-        name: 'last_name',
-        message: 'What is the last name of the employee?',
-      },
-      {
-        type: 'list',
         name: 'salary',
-        message:'What is the ]salary of the employee?',
+        message:'What is the salary of the employee?',
     },
 
       {
@@ -180,19 +175,35 @@ db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUE
   ]
   
   inquirer.prompt(addroleQuestions).then((answers)=>{
-  console.log(answers)
-  db.query(`INSERT INTO EMPLOYEE_ROLE ( first_name,last_name,salary,department_id) VALUES ('${answers.first_name}','${answers.last_name}','${answers.salary}','${answers.department_id}')`,(err,result)=>{
-    if(err) console.log(err)
-    console.log(result)
+  console.table(answers)
+  db.query(`INSERT INTO EMPLOYEE_ROLE (title,salary,department_id) VALUES ('${answers.title}','${answers.salary}','${answers.department_id}')`,(err,result)=>{
+    if(err) console.table(err)
+    console.table(result)
   })
   })
     })
   
     }    
       
-  
+    function adddepartment(){
+        let adddeptQuestion =[{
+          type: 'input',
+          name: 'departmentname',
+          message: 'What is the name of the department?',
+        },
+      ]
  
-   
+      inquirer.prompt(adddeptQuestion).then((answers)=>{
+        console.table(answers)
+        db.query(`INSERT INTO department (departmentname) VALUES ('${answers.title}')`,(err,result)=>{
+          if(err) console.table(err)
+          console.table(result)
+        })
+        })
+          }
+        
+              
+            
 
 
 
