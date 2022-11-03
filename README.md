@@ -30,6 +30,9 @@ Acceptance Criteria
 * THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 ## Usage
+
+https://youtu.be/xQlWRdMz-c4 
+
 ![screenshot1](https://user-images.githubusercontent.com/112586779/199641492-9ae262f1-1730-40ab-b6a6-27023f96c333.png)
 
 ![screenshot2](https://user-images.githubusercontent.com/112586779/199641502-44080eef-9089-472d-baf6-4b0924bb6f4c.png)
