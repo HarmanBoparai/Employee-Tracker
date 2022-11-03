@@ -61,7 +61,7 @@ function viewallroles(){
     })
 }
 function viewallemployees(){
-  db.query("select employee.id,employee.first_name,employee.last_name,employee_role.title,employee_role.salary,department.departmentname FROM employee LEFT JOIN employee_role ON employee.role_id=employee_role.id LEFT JOIN department ON department.id =employee_role.department_id",(err,res)=>{
+  db.query("select employee.id,employee.first_name,employee.last_name,employee_role.title,employee_role.salary,department.departmentname,m.first_name as 'manager_name' FROM employee LEFT JOIN employee_role ON employee.role_id=employee_role.id LEFT JOIN department ON department.id =employee_role.department_id LEFT OUTER JOIN employee m ON employee.manager_id= m.id",(err,res)=>{
     console.table(res)
   })
 }
@@ -105,9 +105,9 @@ function addemployee(){
 
 inquirer.prompt(addemployeeQuestions).then((answers)=>{
 console.table(answers)
-db.query(`INSERT INTO EMPLOYEE ( first_name,last_name, role_id,manager_id) VALUES ('${answers.first_name}','${answers.last_name}','${answers.employee_role}','${answers.manager_id}')`,(err,result)=>{
+db.query(`INSERT INTO EMPLOYEE (first_name,last_name,role_id,manager_id) VALUES ('${answers.first_name}','${answers.last_name}','${answers.employee_role}','${answers.manager_id}')`,(err,result)=>{
   if(err) console.table(err)
-  console.table(result)
+  console.log(result)
 })
 })
   })
